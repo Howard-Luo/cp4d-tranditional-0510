@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpd-platform-operator-manager
+  namespace: cpd-operators
+  labels:
+    null
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      control-plane: cpd
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        cloudpakId: ca7963422a064869abf2e46477d9eb38
+        cloudpakName: IBM Cloud Pak for Data Enterprise Edition
+        productID: 068a62892a1e4db39641342e592daa25
+        productMetric: FREE
+        productName: IBM Cloud Platform Common Services
+      creationTimestamp: null
+      labels:
+        control-plane: cpd
+        intent: projected
+    spec:
+      containers:
+        - args:
+            - '--zap-log-level'
+            - error
+            - '--ansible-verbosity'
+            - '6'
+          env:
+            - name: PLATFORM_OPERATOR_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: ANSIBLE_STDOUT_CALLBACK
+              value: yaml
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                configMapKeyRef:
+                  key: namespaces
+                  name: namespace-scope
+            - name: PLATFORM_OPERATOR_VERSION
+              value: 6.1.2
+          image: 'icr.io/cpopen/ibm-cpd-platform-operator@sha256:fe14262db038e0f91a974eb27b6bdaecc04e0d24178573d110a2a7589696a634'
+          name: manager
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+      serviceAccountName: cpd-platform-sa
+      terminationGracePeriodSeconds: 10

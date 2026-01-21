@@ -7,3 +7,11 @@ resources:
   # - job-starter.yaml
   - job-debug.yaml
   - job-deployer.yaml
+  - clusterrole-cpd-platform-sa.yaml
+  - clusterrolebinding-cpd-platform-sa.yaml
+  - deployment-cpd-platform-operator-manager.yaml
+  - role-cpd-platform-sa-copy.yaml
+  - role-cpd-platform-sa.yaml
+  - rolebinding-cpd-platform-sa-copy.yaml
+  - rolebinding-cpd-platform-sa.yaml
+  - serviceaccount-cpd-platform-sa.yaml

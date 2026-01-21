@@ -1,0 +1,40 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cpd-platform-sa
+rules:
+  - apiGroups:
+      - ''
+    resourceNames:
+      - common-service-maps
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - use
+  - apiGroups:
+      - ''
+    resources:
+      - namespaces
+    verbs:
+      - get
+      - list
+      - use
+      - watch
+  - apiGroups:
+      - apps
+    resourceNames:
+      - operand-deployment-lifecycle-manager
+      - ibm-namespace-scope-operator
+      - ibm-common-service-webhook
+      - secretshare
+      - ibm-cert-manager-operator
+      - ibm-zen-operator
+      - meta-api-deploy
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - use

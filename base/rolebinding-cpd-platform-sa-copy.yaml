@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cpd-platform-sa
+  namespace: cpd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: cpd-platform-sa
+subjects:
+- kind: ServiceAccount
+  name: cpd-platform-sa
+  namespace: cpd-operators
